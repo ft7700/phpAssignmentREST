@@ -11,10 +11,7 @@
     require_once ('DBConn.php');
     $db = DBConn::getInstance();
   
-    $mysqli = $db->getConnection(); 
-//    $sql_query = "SELECT * FROM users";
-//    $result = $mysqli->query($sql_query); 
-         
+    $mysqli = $db->getConnection();          
 ?>
 <html lang="en">
   <head>
@@ -49,8 +46,7 @@
           curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
           $response = curl_exec($client);
           $result = json_decode($response);
-          
-          
+                 
           echo "User record<br>" . $result;
           $sql_query = "SELECT * FROM users WHERE username = '$name'";
           $result2 = $mysqli->query($sql_query);
@@ -64,15 +60,12 @@
                         <td><?php echo $row['id']; ?></td>
 			<td><?php echo $row['username']; ?></td>
 			<td><?php echo $row['email']; ?></td>
-			<td><?php echo $row['password']; ?></td>
-                        
+			<td><?php echo $row['password']; ?></td>          
 		</tr>
                 <br>
         
          <?php }} 
-         }?>
-
-                
+         }?>                
       </h3>
     </div>
   </body>
