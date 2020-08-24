@@ -1,3 +1,7 @@
+<!--
+  *client side rest api
+  *@author Francis Tan Eng Yee
+*-->
 <?php 
 
     $id = 0;
@@ -6,13 +10,10 @@
     
     require_once ('DBConn.php');
     $db = DBConn::getInstance();
-   
-   
-    
-    
+  
     $mysqli = $db->getConnection(); 
-    $sql_query = "SELECT * FROM users";
-    $result = $mysqli->query($sql_query); 
+//    $sql_query = "SELECT * FROM users";
+//    $result = $mysqli->query($sql_query); 
          
 ?>
 <html lang="en">
@@ -31,15 +32,34 @@
       <form class="form-inline" action="" method="POST">
         <div class="form-group">
           <label for="name">Existing user database</label>
-          
+           <input type="text" name="name" class="form-control"  placeholder="Enter Username" />
         </div>
         <button type="submit" name="submit" class="btn btn-default">Submit</button>
       </form>
       <p>&nbsp;</p>
       <h3>
-         <?php 
+
+
+ <?php 
          if (isset($_POST['submit'])) {
-         while ($row = mysqli_fetch_array($result)){ { ?>
+             $name = $_POST['name'];
+
+          $url = "http://localhost/loginRegisterRestClientSide/client.phpname=" . $name;
+          $client = curl_init($url);
+          curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+          $response = curl_exec($client);
+          $result = json_decode($response);
+          
+          
+          echo "User record<br>" . $result;
+          $sql_query = "SELECT * FROM users WHERE username = '$name'";
+          $result2 = $mysqli->query($sql_query);
+          
+          if($name == ""){
+              echo 'No record';
+          }
+          
+          while ($row = mysqli_fetch_array($result2)){ { ?>
 		<tr>
                         <td><?php echo $row['id']; ?></td>
 			<td><?php echo $row['username']; ?></td>
@@ -49,7 +69,9 @@
 		</tr>
                 <br>
         
-         <?php }} }?>
+         <?php }} 
+         }?>
+
                 
       </h3>
     </div>

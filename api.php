@@ -1,3 +1,7 @@
+<!--
+  *api 
+  *@author Francis Tan Eng Yee
+*-->
 <?php
 
 $con= mysqli_connect('localhost','root','','registration');

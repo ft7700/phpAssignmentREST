@@ -1,3 +1,9 @@
+<!--
+  *DBConn singleton
+  *@author Francis Tan Eng Yee
+  *Singleton
+  *Mysql database class - only one connection alowed
+*-->
 <?php
  
 /*
